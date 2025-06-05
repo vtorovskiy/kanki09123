@@ -1,0 +1,72 @@
+# Environment files - КРИТИЧНО!
+.env
+*.env
+.env.local
+.env.production
+
+# API Keys and credentials - НИКОГДА НЕ КОММИТИМ!
+google-credentials.json
+config.py
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+.coverage
+
+# Logs
+logs/
+*.log
+webhook.log
+bot.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Backups
+backups/
+*.sql
+*.sql.gz
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data and uploads
+data/
+uploads/
+static/
+
+# Metrics
+metrics.json
+
+# System files
+*.pid
+*.sock
+
+
+archive/
+*.sh
+udo journalctl -u nutrition-bot -f
