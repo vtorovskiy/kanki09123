@@ -418,7 +418,8 @@ class DatabaseManager:
                 session.add(user)
                 session.flush()
 
-            end_date = datetime.utcnow() + timedelta(days=30 * months)
+            moscow_time = datetime.utcnow() + timedelta(hours=3)
+            end_date = moscow_time + timedelta(days=30 * months)
 
             subscription = UserSubscription(
                 user_id=user.id,

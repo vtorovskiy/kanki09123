@@ -4,6 +4,7 @@ import logging
 import os
 import sys
 from datetime import datetime
+from utils.helpers import format_datetime
 
 # Настройка логирования
 logging.basicConfig(
