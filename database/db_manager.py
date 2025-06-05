@@ -391,15 +391,16 @@ class DatabaseManager:
                 subscription.is_active = False
                 logger.info(f"Деактивирована истекшая подписка для пользователя {telegram_id}")
 
-            # Проверяем есть ли активные подписки
+            # ИСПРАВЛЕНИЕ: Сначала commit изменений
+            if expired_subscriptions:
+                session.commit()
+
+            # Проверяем есть ли активные подписки (ПОСЛЕ commit'а)
             active_subscription = session.query(UserSubscription).filter(
                 UserSubscription.user_id == user.id,
                 UserSubscription.is_active == True,
                 UserSubscription.end_date > now_msk
             ).first()
-
-            # Сохраняем изменения
-            session.commit()
 
             return bool(active_subscription)
 

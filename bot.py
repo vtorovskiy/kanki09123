@@ -1145,7 +1145,7 @@ def subscription_command(message):
     """Обработчик команды /subscription"""
     user_id = message.from_user.id
 
-    # Проверка статуса подписки (теперь с автообновлением!)
+    # ИСПРАВЛЕННАЯ проверка статуса подписки
     is_subscribed = DatabaseManager.check_subscription_status(user_id)
     remaining_requests = DatabaseManager.get_remaining_free_requests(user_id)
 
@@ -1155,9 +1155,8 @@ def subscription_command(message):
     # Формирование сообщения
     if is_subscribed:
         # Получение информации о РЕАЛЬНО активной подписке
-        from database.db_manager import Session
-        session = Session()
-        try:
+        from database.db_manager import get_db_session
+        with get_db_session() as session:
             user = session.query(User).filter_by(telegram_id=user_id).first()
 
             # Получаем только АКТИВНЫЕ подписки с актуальной датой
@@ -1194,9 +1193,6 @@ def subscription_command(message):
                 # Кнопки
                 markup = InlineKeyboardMarkup()
                 markup.add(InlineKeyboardButton("Оформить подписку", callback_data="subscribe"))
-
-        finally:
-            session.close()
     else:
         subscription_text = (
             "❌ *У вас нет активной подписки*\n\n"
